@@ -4,12 +4,10 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
-
 import com.hyphenate.chat.EMClient;
 import com.shengsheng.police.R;
 import com.shengsheng.police.model.Model;
-
-
+import com.shengsheng.police.model.bean.UserInfo;
 public class SplashActivity extends Activity {
     private Handler handler=new Handler() {
         public void handleMessage(Message msg)
@@ -39,10 +37,23 @@ public class SplashActivity extends Activity {
                 if(EMClient.getInstance().isLoggedInBefore())//该账号以前登陆过
                 {
                     //获取到当前登陆用户的信息
+                    UserInfo account = Model.getInstance().getUserAccountDao().getAccountByHxId(EMClient.getInstance().getCurrentUser());
+                    if(account==null)
+                    {
+                        //当前账号为空
+                        //跳转到登陆页面
+                        Intent intent= new Intent(SplashActivity.this,LoginActivity.class);
+                        startActivity(intent);
+                    }
+                    else
+                    {
+                        //登陆成功后的方法
+                        Model.getInstance().loginSuccess(account);
 
-                    //跳转到主页面
-                    Intent intent= new Intent(SplashActivity.this,MainActivity.class);
-                    startActivity(intent);
+                        //跳转到主页面
+                        Intent intent= new Intent(SplashActivity.this,MainActivity.class);
+                        startActivity(intent);
+                    }
                 }
                 else//没有登陆过
                 {
