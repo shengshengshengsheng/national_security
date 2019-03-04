@@ -19,11 +19,11 @@ public class DBManager {
         invitableDao = new InviteTableDao(dbHelper);
     }
 //获取联系人表的操作类对象
-    public ContactTableDao getContactDao(){
+    public ContactTableDao getContactTableDao(){
         return contactTableDao;
     }
 //获取邀请人表的操作类对象
-    public InviteTableDao getInvitationDao(){
+    public InviteTableDao getInviteTableDao(){
         return invitableDao;
     }
 //关闭数据库的方法
