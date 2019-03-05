@@ -6,7 +6,10 @@ public class Constant {
     //联系人状态变化的广播
     public static final String CONTACT_CHANGED = "contact_changed";
     //群邀请状态
-    public static final String GROUP_INVITE_CHAGE = "group_invite_chage";
-    //退群广播
-    public static final String DESTORY_GROUP = "destory_group";
+    public static final String GROUP_INVITE_CHAGED = "group_invite_changed";
+
+    public static final String GROUP_ID = "group_id";
+
+    public static final String EXIT_GROUP = "exit_group";//退群的广播
+
 }

@@ -1,5 +1,6 @@
 package com.shengsheng.police.controller.activity;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
@@ -18,13 +19,12 @@ import com.shengsheng.police.R;
 import com.shengsheng.police.model.Model;
 
 //创建新群
-public class NewGroupActivity extends AppCompatActivity {
+public class NewGroupActivity extends Activity {
     private EditText et_newgroup_name;
     private EditText et_newgroup_desc;
     private CheckBox cb_newgroup_public;
     private CheckBox cb_newgroup_invite;
     private Button bt_newgroup_create;
-    
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -32,20 +32,17 @@ public class NewGroupActivity extends AppCompatActivity {
         initView();
         initListener();
     }
-
     private void initListener() {
         //创建按钮的点击事件处理
         bt_newgroup_create.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
                 //跳转到选择联系人的页面
                 Intent intent = new Intent(NewGroupActivity.this, PickContactActivity.class);
-                startActivity(intent);
+                startActivityForResult(intent,1);
             }
         });
     }
-
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
@@ -109,6 +106,8 @@ public class NewGroupActivity extends AppCompatActivity {
                         @Override
                         public void run() {
                             Toast.makeText(NewGroupActivity.this, "创建群成功", Toast.LENGTH_SHORT).show();
+                            //结束当前页面
+                            finish();
                         }
                     });
 
@@ -120,18 +119,15 @@ public class NewGroupActivity extends AppCompatActivity {
                             Toast.makeText(NewGroupActivity.this, "创建群失败", Toast.LENGTH_SHORT).show();
                         }
                     });
-
                 }
             }
         });
     }
-
     private void initView() {
-        View et_newgroup_name = findViewById(R.id.et_newgroup_name);
-        View et_newgroup_desc = findViewById(R.id.et_newgroup_desc);
-        View cb_newgroup_public = findViewById(R.id.cb_newgroup_public);
-        View cb_newgroup_invite = findViewById(R.id.cb_newgroup_invite);
-        View bt_newgroup_create = findViewById(R.id.bt_newgroup_create);
-        
+         et_newgroup_name = findViewById(R.id.et_newgroup_name);
+         et_newgroup_desc = findViewById(R.id.et_newgroup_desc);
+         cb_newgroup_public = findViewById(R.id.cb_newgroup_public);
+         cb_newgroup_invite = findViewById(R.id.cb_newgroup_invite);
+         bt_newgroup_create = findViewById(R.id.bt_newgroup_create);
     }
 }

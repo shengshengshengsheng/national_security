@@ -84,7 +84,7 @@ public class GroupListActivity extends Activity {
                         @Override
                         public void run() {
                             Toast.makeText(GroupListActivity.this, "加载群信息成功", Toast.LENGTH_SHORT).show();
-//                            groupListAdapter.refresh(mGroups);
+                          //groupListAdapter.refresh(mGroups);
                             //刷新页面
                             refresh();
                         }

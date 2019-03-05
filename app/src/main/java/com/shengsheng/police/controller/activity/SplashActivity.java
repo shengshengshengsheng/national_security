@@ -49,7 +49,6 @@ public class SplashActivity extends Activity {
                     {
                         //登陆成功后的方法
                         Model.getInstance().loginSuccess(account);
-
                         //跳转到主页面
                         Intent intent= new Intent(SplashActivity.this,MainActivity.class);
                         startActivity(intent);

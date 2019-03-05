@@ -18,29 +18,21 @@ public class GroupListAdapter extends BaseAdapter {
 
     public GroupListAdapter(Context context) {
         mContext = context;
-        mGroups = new ArrayList<>();
     }
 
     //刷新方法
     public void refresh(List<EMGroup> groups) {
 
-        if (groups == null && groups.size() < 0) {
-            return;
+        if (groups != null && groups.size() >=0) {
+            mGroups.clear();
+            mGroups.addAll(groups);
+            notifyDataSetChanged();
         }
-
-        mGroups.clear();
-        mGroups.addAll(groups);
-
-        notifyDataSetChanged();
-
     }
-
-
     @Override
     public int getCount() {
         return mGroups == null ? 0 : mGroups.size();
     }
-
     @Override
     public Object getItem(int position) {
         return mGroups.get(position);
@@ -53,15 +45,12 @@ public class GroupListAdapter extends BaseAdapter {
 
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
-
         ViewHolder holder = null;
-
         if (convertView == null) {
             holder = new ViewHolder();
             convertView = View.inflate(mContext, R.layout.item_group_list, null);
             holder.name=convertView.findViewById(R.id.tv_grouplist_name);
             convertView.setTag(holder);
-
         }
         else
         {

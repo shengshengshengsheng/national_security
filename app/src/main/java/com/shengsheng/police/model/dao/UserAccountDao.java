@@ -5,6 +5,7 @@ import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteCursor;
 import android.database.sqlite.SQLiteDatabase;
+import android.text.TextUtils;
 
 import com.shengsheng.police.model.bean.UserAccountDB;
 import com.shengsheng.police.model.bean.UserInfo;
@@ -18,6 +19,10 @@ public class UserAccountDao {
     //添加用户到数据库的方法
     public void addAccount(UserInfo user)
     {
+        //验证
+        if (user==null){
+            return;
+        }
         //获取数据库对象
        SQLiteDatabase db= mHelper.getReadableDatabase();
         //执行添加操作
@@ -32,6 +37,9 @@ public class UserAccountDao {
     //根据环信id获取所有用户信息
     public UserInfo getAccountByHxId(String hxId)
     {
+        if (hxId == null || TextUtils.isEmpty(hxId)){
+            return null;
+        }
         //获取数据库对象
        SQLiteDatabase db= mHelper.getReadableDatabase();
         //执行查询语句
@@ -40,7 +48,7 @@ public class UserAccountDao {
         UserInfo userInfo=null;
        if(cursor.moveToNext())
        {
-           new UserInfo();
+           userInfo=new UserInfo();
            //封装对象
            userInfo.setHxid(cursor.getString(cursor.getColumnIndex(UserAccountTable.COL_HXID)));
            userInfo.setName(cursor.getString(cursor.getColumnIndex(UserAccountTable.COL_NAME)));
