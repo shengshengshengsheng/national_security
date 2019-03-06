@@ -10,11 +10,14 @@ import android.widget.CheckBox;
 import android.widget.ListView;
 import android.widget.TextView;
 
+import com.hyphenate.chat.EMClient;
+import com.hyphenate.chat.EMGroup;
 import com.shengsheng.police.R;
 import com.shengsheng.police.controller.adapter.PickContactAdapter;
 import com.shengsheng.police.model.Model;
 import com.shengsheng.police.model.bean.PickContactInfo;
 import com.shengsheng.police.model.bean.UserInfo;
+import com.shengsheng.police.utils.Constant;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -25,14 +28,29 @@ public class PickContactActivity extends Activity {
     private ListView lv_pick;
     private List<PickContactInfo> mPicks;
     private PickContactAdapter pickContactAdapter;
+    private List<String> mExistMembers;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_pick_contact);
-        
+        getData();
         initView();
         initData();
         initListener();
+    }
+    private void getData()
+    {
+        String groupId = getIntent().getStringExtra(Constant.GROUP_ID);
+        if(groupId!=null)
+        {
+            EMGroup group = EMClient.getInstance().groupManager().getGroup(groupId);
+            //获取群中已经存在的群成员信息
+            mExistMembers = group.getMembers();
+        }
+        if(mExistMembers==null)
+        {
+            mExistMembers=new ArrayList<>();
+        }
     }
     private void initListener() {
         //listview条目的点击事件
@@ -79,7 +97,7 @@ public class PickContactActivity extends Activity {
             }
         }
         //初始化listView
-        pickContactAdapter = new PickContactAdapter(this,mPicks);
+        pickContactAdapter = new PickContactAdapter(this,mPicks,mExistMembers);
         lv_pick.setAdapter(pickContactAdapter);
     }
 

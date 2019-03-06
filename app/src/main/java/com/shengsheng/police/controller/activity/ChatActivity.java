@@ -1,6 +1,8 @@
 package com.shengsheng.police.controller.activity;
 
 import android.app.Activity;
+import android.content.BroadcastReceiver;
+import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.support.v4.app.FragmentActivity;
@@ -21,6 +23,9 @@ import com.shengsheng.police.utils.Constant;
 public class ChatActivity extends FragmentActivity {
     private  EaseChatFragment easeChatFragment;
     private String mHxid;
+    private LocalBroadcastManager mLBM;
+    private int mChatType;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -75,16 +80,37 @@ public class ChatActivity extends FragmentActivity {
                 return null;
             }
         });
+        //如果当前类型为群聊
+        if(mChatType==EaseConstant.CHATTYPE_GROUP)
+        {
+            //注册退群广播
+             BroadcastReceiver ExitGroupReceiver=new BroadcastReceiver() {
+                @Override
+                public void onReceive(Context context, Intent intent) {
+                    if(mHxid.equals(intent.getStringExtra(Constant.GROUP_ID)))
+                    {
+                        //结束当前页面
+                        finish();
+                    }
+                }
+            };
+            mLBM.registerReceiver(ExitGroupReceiver,new IntentFilter(Constant.EXIT_GROUP));
+        }
     }
 
     private void initData() {
         //创建一个聊天的fragment
          easeChatFragment = new EaseChatFragment();
          mHxid = getIntent().getExtras().getString(EaseConstant.EXTRA_USER_ID);
+         //获取聊天类型
+        mChatType= getIntent().getExtras().getInt(EaseConstant.EXTRA_CHAT_TYPE);
+
         easeChatFragment.setArguments(getIntent().getExtras());
         //替换fragment
         FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
         transaction.replace(R.id.fl_chat,easeChatFragment).commit();
+        //获取发送广播的管理者
+        mLBM = LocalBroadcastManager.getInstance(ChatActivity.this);
 
     }
 }

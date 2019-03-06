@@ -17,13 +17,16 @@ import java.util.List;
 public class PickContactAdapter extends BaseAdapter {
 private List<PickContactInfo>mPicks=new ArrayList<>();
 private Context mContext;
-    public PickContactAdapter(Context context, List<PickContactInfo>picks) {
+private List<String>mExistMembers=new ArrayList<>();//保存群中已经存在的群成员
+    public PickContactAdapter(Context context, List<PickContactInfo>picks,List<String> existMembers) {
         mContext=context;
         if(picks!=null&&picks.size()>=0)
         {
             mPicks.clear();
             mPicks.addAll(picks);
         }
+        mExistMembers.clear();
+        mExistMembers.addAll(existMembers);
     }
 
     @Override
@@ -61,6 +64,12 @@ private Context mContext;
         //显示数据
         holder.tv_name.setText(pickContactInfo.getUser().getName());
         holder.cb.setChecked(pickContactInfo.isChecked());
+        //判断
+        if(mExistMembers.contains(pickContactInfo.getUser().getHxid()))
+        {
+            holder.cb.setChecked(true);
+            pickContactInfo.setChecked(true);
+        }
 
         return convertView;
     }
