@@ -39,14 +39,12 @@ public class ContactListFragment extends EaseContactListFragment {
     private ImageView iv_contact_red;
     private LocalBroadcastManager mLBM;
     private String mHxid;
-
     private BroadcastReceiver ContactInviteChangeReceiver=new BroadcastReceiver() {
         @Override
         public void onReceive(Context context, Intent intent) {
             //更新红点显示
             iv_contact_red.setVisibility(View.VISIBLE);
             SpUtils.getInstance().save(SpUtils.IS_NEW_INVITE,true);
-
         }
     };
     private LinearLayout ll_contact_invite;
