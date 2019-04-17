@@ -27,7 +27,7 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme.NoActionBar">
-        <activity android:name=".controller.activity.CaseCenterActivity"></activity>
+        <activity android:name=".caseManage.CaseCenterActivity"></activity>
         <activity android:name=".daka.PunchCardActivity" />
         <activity
             android:name=".controller.activity.VideoActivity"

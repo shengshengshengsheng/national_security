@@ -9,10 +9,8 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
-
-import com.hyphenate.chat.EMClient;
 import com.shengsheng.police.R;
-import com.shengsheng.police.controller.activity.CaseCenterActivity;
+import com.shengsheng.police.caseManage.CaseCenterActivity;
 import com.shengsheng.police.controller.activity.VideoActivity;
 import com.shengsheng.police.daka.PunchCardActivity;
 import com.shengsheng.police.model.Model;
