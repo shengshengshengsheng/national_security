@@ -1,18 +1,14 @@
 package com.shengsheng.police.controller.adapter;
-
 import android.content.Context;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
-
 import com.shengsheng.police.R;
 import com.shengsheng.police.model.bean.UserInfo;
-
 import java.util.ArrayList;
 import java.util.List;
-
 public class GroupDetailAdapter extends BaseAdapter {
     private Context mContext;
     private OnGroupDetailListener mOnGroupDetailListener;
@@ -32,7 +28,6 @@ public class GroupDetailAdapter extends BaseAdapter {
     public void setmIsDeleteModel(boolean mIsDeleteModel) {
         this.mIsDeleteModel = mIsDeleteModel;
     }
-
     //刷新数据
     public void refresh(List<UserInfo> users)
     {
@@ -46,20 +41,16 @@ public class GroupDetailAdapter extends BaseAdapter {
         }
         notifyDataSetChanged();
     }
-
     private void initUsers() {
         UserInfo add = new UserInfo("add");
         UserInfo delete = new UserInfo("delete");
         mUsers.add(delete);
         mUsers.add(0,add);
-
     }
-
     @Override
     public int getCount() {
         return mUsers==null?0:mUsers.size();
     }
-
     @Override
     public Object getItem(int position) {
         return mUsers.get(position);

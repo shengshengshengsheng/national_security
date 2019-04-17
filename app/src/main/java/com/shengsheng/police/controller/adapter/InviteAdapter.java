@@ -6,12 +6,10 @@ import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.Button;
 import android.widget.TextView;
-
 import com.shengsheng.police.R;
 import com.shengsheng.police.model.bean.GroupInfo;
 import com.shengsheng.police.model.bean.InvitationInfo;
 import com.shengsheng.police.model.bean.UserInfo;
-
 import java.util.ArrayList;
 import java.util.List;
 //邀请信息列表页面的适配器
@@ -143,12 +141,10 @@ public class InviteAdapter extends BaseAdapter {
                 case GROUP_INVITE_ACCEPTED:
                     holder.reason.setText("您的群邀请已经被接收");
                     break;
-
                 // 你的群申请已经被拒绝
                 case GROUP_APPLICATION_DECLINED:
                     holder.reason.setText("你的群申请已经被拒绝");
                     break;
-
                 // 您的群邀请已经被拒绝
                 case GROUP_INVITE_DECLINED:
                     holder.reason.setText("您的群邀请已经被拒绝");
@@ -202,17 +198,14 @@ public class InviteAdapter extends BaseAdapter {
                 case GROUP_ACCEPT_INVITE:
                     holder.reason.setText("你接受了群邀请");
                     break;
-
                 // 您批准了群申请
                 case GROUP_ACCEPT_APPLICATION:
                     holder.reason.setText("您批准了群申请");
                     break;
-
                 // 你拒绝了群邀请
                 case GROUP_REJECT_INVITE:
                     holder.reason.setText("你拒绝了群邀请");
                     break;
-
                 // 您拒绝了群申请
                 case GROUP_REJECT_APPLICATION:
                     holder.reason.setText("您拒绝了群申请");

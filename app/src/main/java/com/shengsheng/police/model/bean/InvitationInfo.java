@@ -52,38 +52,27 @@ public class InvitationInfo {
         NEW_INVITE,// 新邀请
         INVITE_ACCEPT,//接受邀请
         INVITE_ACCEPT_BY_PEER,// 邀请被接受
-
         // --以下是群组邀请信息状态--
 
-        //收到邀请去加入群
-        NEW_GROUP_INVITE,
+        NEW_GROUP_INVITE,//收到邀请去加入群
 
-        //收到申请群加入
-        NEW_GROUP_APPLICATION,
+        NEW_GROUP_APPLICATION,//收到申请群加入
 
-        //群邀请已经被对方接受
-        GROUP_INVITE_ACCEPTED,
+        GROUP_INVITE_ACCEPTED,//群邀请已经被对方接受
 
-        //群申请已经被批准
-        GROUP_APPLICATION_ACCEPTED,
+        GROUP_APPLICATION_ACCEPTED,//群申请已经被批准
 
-        //接受了群邀请
-        GROUP_ACCEPT_INVITE,
+        GROUP_ACCEPT_INVITE,//接受了群邀请
 
-        //批准的群加入申请
-        GROUP_ACCEPT_APPLICATION,
+        GROUP_ACCEPT_APPLICATION,//批准的群加入申请
 
-        //拒绝了群邀请
-        GROUP_REJECT_INVITE,
+        GROUP_REJECT_INVITE,//拒绝了群邀请
 
-        //拒绝了群申请加入
-        GROUP_REJECT_APPLICATION,
+        GROUP_REJECT_APPLICATION,//拒绝了群申请加入
 
-        //群邀请被对方拒绝
-        GROUP_INVITE_DECLINED,
+        GROUP_INVITE_DECLINED,//群邀请被对方拒绝
 
-        //群申请被拒绝
-        GROUP_APPLICATION_DECLINED
+        GROUP_APPLICATION_DECLINED //群申请被拒绝
     }
 
     @Override

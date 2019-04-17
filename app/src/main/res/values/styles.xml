@@ -17,4 +17,8 @@
     <!--<item name="android:background">@drawable/main_bottom_bg_selector</item>-->
     <item name="android:textColor">@color/main_bottom_textcolor_selector</item>
 </style>
+    <style name="AppTheme.NoActionBar">
+        <item name="windowActionBar">false</item>
+        <item name="windowNoTitle">true</item>
+    </style>
 </resources>

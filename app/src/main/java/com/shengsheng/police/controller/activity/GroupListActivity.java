@@ -1,5 +1,4 @@
 package com.shengsheng.police.controller.activity;
-
 import android.app.Activity;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
@@ -20,13 +19,11 @@ import com.shengsheng.police.controller.adapter.GroupListAdapter;
 import com.shengsheng.police.model.Model;
 
 import java.util.List;
-
 //群组列表页面
 public class GroupListActivity extends Activity {
     private ListView lv_grouplist;
     private GroupListAdapter groupListAdapter;
     private LinearLayout ll_grouplist;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -35,9 +32,8 @@ public class GroupListActivity extends Activity {
         initData();
         initListener();
     }
-
     private void initListener() {
-        //listview条目的点击事件
+        //listView条目的点击事件
         lv_grouplist.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
@@ -71,7 +67,6 @@ public class GroupListActivity extends Activity {
         //从环信服务器获取所有群的相关信息
         getGroupsFromServer();
     }
-
     private void getGroupsFromServer() {
         Model.getInstance().getGlobalThreadPool().execute(new Runnable() {
             @Override

@@ -1,3 +1,12 @@
 <resources>
     <string name="app_name">国保</string>
+    <!-- PLEASE KEEP THIS App ID IN SAFE PLACE -->
+    <!-- Get your own App ID at https://dashboard.agora.io/ -->
+    <!-- After you entered the App ID, remove <##> outside of Your App ID -->
+    <!-- For formal released project, please use Security Keys/Token
+        https://docs.agora.io/en/Agora%20Platform/token?platform=All%20Platforms -->
+    <string name="agora_app_id">2ac4e11699414547b286edf6eabd3bb4</string>
+
+    <!-- replace rtmp_url with your url, plz ensure this url is usable -->
+    <string name="cdn_streaming_url">rtmp://192.168.1.234:10086/hls/123?sign=TFM9sBgWR</string>
 </resources>

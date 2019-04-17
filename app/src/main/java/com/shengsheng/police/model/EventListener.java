@@ -17,10 +17,8 @@ import com.shengsheng.police.utils.SpUtils;
 import java.util.List;
 
 public class EventListener {
-
     private Context mContext;
     private final LocalBroadcastManager mLBM;
-
     public EventListener(Context context) {
         mContext = context;
         //本地广播
@@ -38,60 +36,31 @@ public class EventListener {
         public void onInvitationReceived(String groupId, String groupName, String inviter, String reason) {
             //添加邀请到数据库
             InvitationInfo invitationInfo = new InvitationInfo();
+            Model.getInstance().getDbManager().getInviteTableDao().addInvitation(invitationInfo);
             invitationInfo.setReason(reason);
             invitationInfo.setStatus(InvitationInfo.InvitationStatus.NEW_GROUP_INVITE);
             invitationInfo.setGroupInfo(new GroupInfo(groupName,groupId,inviter));
-            Model.getInstance().getDbManager().getInviteTableDao().addInvitation(invitationInfo);
             //保存小红点的状态
             SpUtils.getInstance().save(SpUtils.IS_NEW_INVITE,true);
             //发送广播
             mLBM.sendBroadcast(new Intent(Constant.GROUP_INVITE_CHAGED));
         }
-        //收到群邀请被拒绝
-        @Override
-        public void onInvitationDeclined(String groupId, String invitee, String reason) {
 
-            InvitationInfo invitationInfo = new InvitationInfo();
-            invitationInfo.setReason(reason);
-            invitationInfo.setStatus(InvitationInfo.InvitationStatus.GROUP_INVITE_DECLINED);
-            invitationInfo.setGroupInfo(new GroupInfo(groupId,groupId,invitee));
-            Model.getInstance().getDbManager().getInviteTableDao()
-                    .addInvitation(invitationInfo);
-            //保存小红点的状态
-            SpUtils.getInstance().save(SpUtils.IS_NEW_INVITE,true);
-            //发送广播
-            mLBM.sendBroadcast(new Intent(Constant.GROUP_INVITE_CHAGED));
-        }
-        //收到群邀请被同意
-        @Override
-        public void onInvitationAccepted(String groupId, String inviter, String reason) {
 
-            InvitationInfo invitationInfo = new InvitationInfo();
-            invitationInfo.setReason(reason);
-            invitationInfo.setStatus(InvitationInfo.InvitationStatus.GROUP_INVITE_ACCEPTED);
-            invitationInfo.setGroupInfo(new GroupInfo(groupId,groupId,inviter));
-            Model.getInstance().getDbManager().getInviteTableDao()
-                    .addInvitation(invitationInfo);
-            //保存小红点的状态
-            SpUtils.getInstance().save(SpUtils.IS_NEW_INVITE,true);
-            //发送广播
-            mLBM.sendBroadcast(new Intent(Constant.GROUP_INVITE_CHAGED));
-
-        }
         //收到群申请通知
         @Override
         public void onRequestToJoinReceived(String groupId, String groupName, String applicant, String reason) {
             InvitationInfo invitation = new InvitationInfo();
+            Model.getInstance().getDbManager().getInviteTableDao().addInvitation(invitation);
             invitation.setReason(reason);
             invitation.setStatus(InvitationInfo.InvitationStatus.NEW_GROUP_APPLICATION);
             invitation.setGroupInfo(new GroupInfo(groupName,groupId,applicant));
-            Model.getInstance().getDbManager().getInviteTableDao().addInvitation(invitation);
+
             //保存小红点的状态
             SpUtils.getInstance().save(SpUtils.IS_NEW_INVITE,true);
             //发送广播
             mLBM.sendBroadcast(new Intent(Constant.GROUP_INVITE_CHAGED));
         }
-
         //收到群申请被接受
         @Override
         public void onRequestToJoinAccepted(String groupId, String groupName, String accepter) {
@@ -121,6 +90,36 @@ public class EventListener {
             mLBM.sendBroadcast(new Intent(Constant.GROUP_INVITE_CHAGED));
 
         }
+        //收到群邀请被同意
+        @Override
+        public void onInvitationAccepted(String groupId, String inviter, String reason) {
+
+            InvitationInfo invitationInfo = new InvitationInfo();
+            Model.getInstance().getDbManager().getInviteTableDao().addInvitation(invitationInfo);
+            invitationInfo.setReason(reason);
+            invitationInfo.setStatus(InvitationInfo.InvitationStatus.GROUP_INVITE_ACCEPTED);
+            invitationInfo.setGroupInfo(new GroupInfo(groupId,groupId,inviter));
+            //保存小红点的状态
+            SpUtils.getInstance().save(SpUtils.IS_NEW_INVITE,true);
+            //发送广播
+            mLBM.sendBroadcast(new Intent(Constant.GROUP_INVITE_CHAGED));
+
+        }
+
+        //收到群邀请被拒绝
+        @Override
+        public void onInvitationDeclined(String groupId, String invitee, String reason) {
+
+            InvitationInfo invitationInfo = new InvitationInfo();
+            Model.getInstance().getDbManager().getInviteTableDao().addInvitation(invitationInfo);
+            invitationInfo.setReason(reason);
+            invitationInfo.setStatus(InvitationInfo.InvitationStatus.GROUP_INVITE_DECLINED);
+            invitationInfo.setGroupInfo(new GroupInfo(groupId,groupId,invitee));
+            //保存小红点的状态
+            SpUtils.getInstance().save(SpUtils.IS_NEW_INVITE,true);
+            //发送广播
+            mLBM.sendBroadcast(new Intent(Constant.GROUP_INVITE_CHAGED));
+        }
         //群成员的删除
         @Override
         public void onUserRemoved(String s, String s1) {
@@ -144,15 +143,12 @@ public class EventListener {
             mLBM.sendBroadcast(new Intent(Constant.GROUP_INVITE_CHAGED));
 
         }
-
         @Override
         public void onMuteListAdded(String s, List<String> list, long l) {
-
         }
 
         @Override
         public void onMuteListRemoved(String s, List<String> list) {
-
         }
 
         @Override
@@ -195,9 +191,6 @@ public class EventListener {
 
         }
     };
-
-
-
     private final EMContactListener emContactlistener = new EMContactListener() {
         //增加了联系人时回调此方法  当你同意添加好友
         @Override

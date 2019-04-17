@@ -60,6 +60,7 @@ public class ContactListFragment extends EaseContactListFragment {
     private BroadcastReceiver GroupChangeReceiver=new BroadcastReceiver() {
         @Override
         public void onReceive(Context context, Intent intent) {
+            //显示红点
             iv_contact_red.setVisibility(View.VISIBLE);
             SpUtils.getInstance().save(SpUtils.IS_NEW_INVITE,true);
         }

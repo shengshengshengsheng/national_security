@@ -25,7 +25,6 @@ public class ChatActivity extends FragmentActivity {
     private String mHxid;
     private LocalBroadcastManager mLBM;
     private int mChatType;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

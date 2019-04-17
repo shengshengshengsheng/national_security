@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical">
+    <com.hyphenate.easeui.widget.EaseTitleBar
+        app:titleBarTitle="工作台"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+    </com.hyphenate.easeui.widget.EaseTitleBar>
+    <Button
+        android:id="@+id/bt_working_oneKey"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAllCaps="false"
+        android:layout_marginTop="50dp"
+        android:text="一键增援"
+        android:textSize="20sp"
+        android:gravity="center_horizontal"
+        android:layout_gravity="center"
+        android:textColor="@android:color/white"
+        android:background="@android:color/holo_red_light"/>
+    <Button
+        android:id="@+id/bt_working_punchCard"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAllCaps="false"
+        android:text="出勤打卡"
+        android:textSize="20sp"
+        android:layout_marginTop="50dp"
+        android:gravity="center_horizontal"
+        android:layout_gravity="center"
+        android:textColor="@android:color/white"
+        android:background="@android:color/holo_red_light"/>
+</LinearLayout>

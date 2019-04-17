@@ -1,6 +1,11 @@
 package com.shengsheng.police.model.bean;
+
+import android.view.SurfaceView;
+
 //用户账号的信息的bean类
 public class UserInfo {
+    public int uid;
+    public SurfaceView view;
     private String name;//用户名称
     private String hxid;//环信id，用户在环信服务器中唯一的标识
     private String nick;//用户昵称

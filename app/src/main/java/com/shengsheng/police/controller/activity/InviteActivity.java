@@ -1,5 +1,4 @@
 package com.shengsheng.police.controller.activity;
-
 import android.app.Activity;
 import android.content.BroadcastReceiver;
 import android.content.Context;
@@ -20,7 +19,6 @@ import com.shengsheng.police.model.bean.InvitationInfo;
 import com.shengsheng.police.utils.Constant;
 
 import java.util.List;
-
 //邀请信息列表页面
 public class InviteActivity extends Activity {
     private InviteAdapter inviteAdapter;
@@ -95,8 +93,7 @@ public class InviteActivity extends Activity {
                 public void run() {
                     try {
                         //告诉环信服务器接受了邀请
-                        EMClient.getInstance().groupManager()
-                                .acceptInvitation(invitationInfo.getGroupInfo().getGroupId(),
+                        EMClient.getInstance().groupManager().acceptInvitation(invitationInfo.getGroupInfo().getGroupId(),
                                         invitationInfo.getGroupInfo().getInvitePerson());
                         //本地数据更新
                         invitationInfo.setStatus(InvitationInfo.InvitationStatus.GROUP_ACCEPT_INVITE);
@@ -105,7 +102,6 @@ public class InviteActivity extends Activity {
                         runOnUiThread(new Runnable() {
                             @Override
                             public void run() {
-
                                 Toast.makeText(InviteActivity.this, "接受邀请成功", Toast.LENGTH_SHORT).show();
                                 refresh();
                             }
@@ -121,7 +117,6 @@ public class InviteActivity extends Activity {
                     }
                 }
             });
-
         }
         //拒绝邀请按钮处理
         @Override
@@ -129,15 +124,11 @@ public class InviteActivity extends Activity {
             Model.getInstance().getGlobalThreadPool().execute(new Runnable() {
                 @Override
                 public void run() {
-
-
                     try {
                         //告诉环信服务器拒绝了邀请
-                        EMClient.getInstance().groupManager()
-                                .declineInvitation(
+                        EMClient.getInstance().groupManager().declineInvitation(
                                         invitationInfo.getGroupInfo().getGroupId(),
                                         invitationInfo.getGroupInfo().getInvitePerson(),"拒绝邀请");
-
                         //本地
                         invitationInfo.setStatus(InvitationInfo.InvitationStatus.GROUP_REJECT_INVITE);
                         Model.getInstance().getDbManager().getInviteTableDao()
@@ -206,7 +197,6 @@ public class InviteActivity extends Activity {
             Model.getInstance().getGlobalThreadPool().execute(new Runnable() {
                 @Override
                 public void run() {
-
                     //网络
                     try {
                         EMClient.getInstance().groupManager()
@@ -263,22 +253,18 @@ public class InviteActivity extends Activity {
         //刷新方法
         refresh();
         //注册邀请信息变化的广播
-
         mLBM = LocalBroadcastManager.getInstance(this);
         mLBM.registerReceiver(InviteChangedReceiver,new IntentFilter(Constant.CONTACT_INVITE_CHANGED));
         mLBM.registerReceiver(InviteChangedReceiver,new IntentFilter(Constant.GROUP_INVITE_CHAGED));
 
     }
-
     private void refresh() {
         //获取数据库中的所有邀请信息
         List<InvitationInfo> invitations = Model.getInstance().getDbManager().getInviteTableDao().getInvitations();
         //刷新
         inviteAdapter.refresh(invitations);
     }
-
     private void initView() {
-
         lv_invite=findViewById(R.id.lv_invite);
     }
     @Override

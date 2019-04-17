@@ -38,8 +38,6 @@ public class GroupDetailActivity extends Activity {
             Intent intent = new Intent(GroupDetailActivity.this, PickContactActivity.class);
             intent.putExtra(Constant.GROUP_ID,mGroup.getGroupId());
             startActivityForResult(intent,2);
-
-
         }
         //删除群成员的方法
         @Override
@@ -67,14 +65,11 @@ public class GroupDetailActivity extends Activity {
                                 Toast.makeText(GroupDetailActivity.this, "删除失败"+e.toString(), Toast.LENGTH_SHORT).show();
                             }
                         });
-
-
                     }
                 }
             });
         }
     };
-
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
@@ -106,7 +101,6 @@ public class GroupDetailActivity extends Activity {
             });
         }
     }
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -116,7 +110,6 @@ public class GroupDetailActivity extends Activity {
         initData();
         initListener();
     }
-
     private void initListener() {
         gv_group_detail.setOnTouchListener(new View.OnTouchListener() {
             @Override
@@ -138,17 +131,14 @@ public class GroupDetailActivity extends Activity {
             }
         });
     }
-
     private void initData() {
         //初始化button显示
         initButtonDisplay();
         //初始化GridView
         initGridView();
-
         //从环信服务器获取所有群成员
         getMembersFromHxServer();
     }
-
     private void getMembersFromHxServer() {
         Model.getInstance().getGlobalThreadPool().execute(new Runnable() {
             @Override
@@ -185,16 +175,13 @@ public class GroupDetailActivity extends Activity {
                 }
             }
         });
-
     }
-
     private void initGridView() {
         //当前用户是群主或者群是公开群
         boolean isCanModify=EMClient.getInstance().getCurrentUser().equals(mGroup.getOwner())||mGroup.isPublic();
          groupDetailAdapter = new GroupDetailAdapter(this, isCanModify,mOnGroupDetailListener);
         gv_group_detail.setAdapter(groupDetailAdapter);
     }
-
     private void initButtonDisplay() {
         //判断当前用户是否为群主
         if(EMClient.getInstance().getCurrentUser().equals(mGroup.getOwner()))
@@ -273,8 +260,6 @@ public class GroupDetailActivity extends Activity {
                     });
                 }
             });
-
-
         }
     }
     //退群和解散群的广播
@@ -296,12 +281,8 @@ public class GroupDetailActivity extends Activity {
         else
         {
              mGroup = EMClient.getInstance().groupManager().getGroup(groupId);
-
-
-
         }
     }
-
     private void initView() {
         gv_group_detail=findViewById(R.id.gv_group_detail);
         bt_group_detail_out=findViewById(R.id.bt_group_detail_out);

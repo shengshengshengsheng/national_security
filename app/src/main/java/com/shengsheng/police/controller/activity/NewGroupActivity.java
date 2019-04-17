@@ -46,6 +46,7 @@ public class NewGroupActivity extends Activity {
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
+        //成功找到联系人
         if(resultCode==RESULT_OK)
         {
             //创建群
@@ -58,7 +59,6 @@ public class NewGroupActivity extends Activity {
         final String groupName = et_newgroup_name.getText().toString();
         //群描述
         final String groupDesc = et_newgroup_desc.getText().toString();
-
         Model.getInstance().getGlobalThreadPool().execute(new Runnable() {
             @Override
             public void run() {
@@ -74,7 +74,6 @@ public class NewGroupActivity extends Activity {
                     {
                         //开放了群邀请
                         groupStyle=EMGroupManager.EMGroupStyle.EMGroupStylePublicOpenJoin;
-
                     }
                     else
                     {

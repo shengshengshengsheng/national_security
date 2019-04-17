@@ -1,6 +1,5 @@
 package com.shengsheng.police.controller.fragment;
 import android.content.Intent;
-
 import com.hyphenate.EMMessageListener;
 import com.hyphenate.chat.EMClient;
 import com.hyphenate.chat.EMConversation;
@@ -9,9 +8,7 @@ import com.hyphenate.easeui.EaseConstant;
 import com.hyphenate.easeui.EaseUI;
 import com.hyphenate.easeui.ui.EaseConversationListFragment;
 import com.shengsheng.police.controller.activity.ChatActivity;
-
 import java.util.List;
-
 //会话列表页面
 public class ChatFragment extends EaseConversationListFragment {
     @Override
