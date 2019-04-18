@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:orientation="vertical"
+    android:layout_height="match_parent"
+    tools:context=".caseManage.UploadCaseInformtionActivity">
+    <RelativeLayout
+        android:background="@android:color/holo_blue_dark"
+        android:layout_width="match_parent"
+        android:layout_height="60dp">
+        <TextView
+            android:layout_centerInParent="true"
+            android:textColor="@android:color/white"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="证据"
+            android:textSize="20sp"
+            />
+        <TextView
+            android:id="@+id/tv_case_upload"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:text="上传"
+            android:textColor="@android:color/white"
+            android:textSize="25sp"
+            android:layout_alignParentRight="true"
+            android:gravity="center"
+            android:layout_marginRight="10dp"/>
+    </RelativeLayout>
+    <TextView
+        android:id="@+id/text_evidence"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="文字证据 "
+        android:textAllCaps="true"
+        android:paddingBottom="3dp"
+        android:textSize="40dp" />
+    <EditText
+        android:layout_width="match_parent"
+        android:layout_height="200dp"
+        android:hint="请输入文字证据"/>
+    <TextView
+        android:id="@+id/photo_evidence"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="视音频证据 "
+        android:textAllCaps="true"
+        android:paddingBottom="3dp"
+        android:textSize="40dp" />
+    <ImageButton
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/upload_photo"/>
+
+
+
+</LinearLayout>

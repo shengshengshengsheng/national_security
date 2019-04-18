@@ -1,5 +1,6 @@
 package com.shengsheng.police.caseManage;
 
+import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -45,6 +46,8 @@ public class CaseCenterActivity extends AppCompatActivity implements MyAdapter.O
             @Override
             public boolean onChildClick(ExpandableListView parent, View v, int groupPosition, int childPosition, long id) {
                 Toast.makeText(CaseCenterActivity.this,nameStrings[groupPosition][childPosition]+"",Toast.LENGTH_SHORT).show();
+                Intent intent=new Intent(CaseCenterActivity.this,UploadCaseInformtionActivity.class);
+                startActivity(intent);
                 return false;
             }
         });
