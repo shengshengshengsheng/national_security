@@ -239,7 +239,7 @@ public class GroupDetailActivity extends Activity {
                                 //发送一个退群广播
                                 exitGroupBroCast();
                                 //更新页面
-                                runOnUiThread(new Runnable() {
+                                runOnUiThread(  new Runnable() {
                                     @Override
                                     public void run() {
                                         Toast.makeText(GroupDetailActivity.this, "退群成功", Toast.LENGTH_SHORT).show();

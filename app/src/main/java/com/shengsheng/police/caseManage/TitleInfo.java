@@ -2,10 +2,6 @@ package com.shengsheng.police.caseManage;
 
 import java.util.List;
 
-/**
- * Created by ${zk} on 2018/4/19 0019.
- * 欢迎每一天
- */
 
 public class TitleInfo {
     private String            title;

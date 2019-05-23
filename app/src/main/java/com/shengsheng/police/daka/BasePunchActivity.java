@@ -22,7 +22,6 @@ import com.shengsheng.police.R;
 
 
 public abstract class BasePunchActivity extends AppCompatActivity {
-
     private String menuStr;
     private int menuResId;
     private String menuStr2;
@@ -35,16 +34,12 @@ public abstract class BasePunchActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_punch_card);
-
-        //1、设置支出，并不显示项目的title文字
+        //1、不显示项目的title文字
         toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-        //getSupportActionBar().setDisplayShowTitleEnabled(false);
-
         //2、将子类的布局解析到 FrameLayout 里面
         viewContent = (FrameLayout) findViewById(R.id.viewContent);
         LayoutInflater.from(this).inflate(getConentView(), viewContent);
-
         //3、初始化操作（此方法必须放在最后执行位置）
         init(savedInstanceState);
     }
@@ -62,18 +57,6 @@ public abstract class BasePunchActivity extends AppCompatActivity {
      * @param savedInstanceState
      */
     protected abstract void init(Bundle savedInstanceState);
-
-    /**
-     * 设置页面标题
-     *
-     * @param title 标题文字
-     */
-//    protected void setTitle(String title) {
-//        if (!TextUtils.isEmpty(title)) {
-//            tvTitle = (TextView) findViewById(R.id.tv_title);
-//            tvTitle.setText(title);
-//        }
-//    }
     /**
      * 设置显示返回按钮
      */
@@ -175,20 +158,15 @@ public abstract class BasePunchActivity extends AppCompatActivity {
     public interface OnClickRightListener {
         void onClick();
     }
-
-
     /**
      * 构造广播监听类，监听 SDK key 验证以及网络异常广播
      */
     private SDKReceiver mReceiver;
     public class SDKReceiver extends BroadcastReceiver {
-
         public void onReceive(Context context, Intent intent) {
             String s = intent.getAction();
             String tx = "";
-
             if (s.equals(SDKInitializer.SDK_BROADTCAST_ACTION_STRING_PERMISSION_CHECK_ERROR)) {
-
                 tx = "key 验证出错! 错误码 :" + intent.getIntExtra
                         (SDKInitializer.SDK_BROADTCAST_INTENT_EXTRA_INFO_KEY_ERROR_CODE, 0)
                         +  " ; 请在 AndroidManifest.xml 文件中检查 key 设置";

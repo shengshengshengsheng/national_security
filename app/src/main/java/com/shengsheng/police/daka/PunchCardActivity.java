@@ -80,23 +80,14 @@ public class PunchCardActivity extends BasePunchActivity implements SensorEventL
 
     @Override
     protected void init(Bundle savedInstanceState) {
-
-        //setTitle("打卡签到");
-
-        //setTitleBack(true);
-
         initBaiduMap();     //1、初始化地图
-
         getLocationClientOption();//2、定位开启
-
         mHandler.post(run);//设置系统时间
-
         mDistance_tv = (TextView) findViewById(R.id.distance_tv);
         mTime_tv = (TextView) findViewById(R.id.arriver_timetv);
         commit_bt = (RelativeLayout) findViewById(R.id.arriver_bt);
         commit_bt.setOnClickListener(this);
     }
-
     /**
      * 初始化地图
      */
@@ -150,7 +141,7 @@ public class PunchCardActivity extends BasePunchActivity implements SensorEventL
             //定位方向
             mCurrentLat = location.getLatitude();
             mCurrentLon = location.getLongitude();
-            //骑手定位
+            //当前用户定位
             locData = new MyLocationData.Builder()
                     .direction(mCurrentDirection).latitude(location.getLatitude())
                     .longitude(location.getLongitude()).build();
@@ -248,7 +239,6 @@ public class PunchCardActivity extends BasePunchActivity implements SensorEventL
 
     /**
      * 获取地图的中心点和缩放比例
-     *
      * @return float
      */
     private float getZoomScale(LatLng LocationPoint) {
@@ -353,7 +343,7 @@ public class PunchCardActivity extends BasePunchActivity implements SensorEventL
             if (mDistance <= DISTANCE) {
                 Toast.makeText(this, "打卡成功", Toast.LENGTH_SHORT).show();
             } else {
-                Toast.makeText(this, "外勤打卡", Toast.LENGTH_SHORT).show();
+                Toast.makeText(this, "外勤打卡失败", Toast.LENGTH_SHORT).show();
             }
 
         }

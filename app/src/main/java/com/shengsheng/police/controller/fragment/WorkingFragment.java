@@ -81,7 +81,7 @@ public class WorkingFragment extends Fragment {
         initData();
     }
 
-    private void initData() {
+        private void initData() {
 
     }
 }

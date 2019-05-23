@@ -37,18 +37,14 @@ public class ChatActivity extends FragmentActivity {
         easeChatFragment.setChatFragmentHelper(new EaseChatFragment.EaseChatFragmentHelper() {
             @Override
             public void onSetMessageAttributes(EMMessage message) {
-
             }
-
             @Override
             public void onEnterToChatDetails() {
                 Intent intent = new Intent(ChatActivity.this, GroupDetailActivity.class);
                 //传递群id
                 intent.putExtra(Constant.GROUP_ID,mHxid);
                 startActivity(intent);
-
             }
-
             @Override
             public void onAvatarClick(String username) {
 
@@ -63,17 +59,13 @@ public class ChatActivity extends FragmentActivity {
             public boolean onMessageBubbleClick(EMMessage message) {
                 return false;
             }
-
             @Override
             public void onMessageBubbleLongClick(EMMessage message) {
-
             }
-
             @Override
             public boolean onExtendMenuItemClick(int itemId, View view) {
                 return false;
             }
-
             @Override
             public EaseCustomChatRowProvider onSetCustomChatRowProvider() {
                 return null;

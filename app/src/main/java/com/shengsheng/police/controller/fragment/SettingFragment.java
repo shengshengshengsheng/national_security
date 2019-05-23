@@ -81,7 +81,6 @@ public class SettingFragment extends Fragment {
                             //正在退出
                             @Override
                             public void onProgress(int i, String s) {
-
                             }
                         });
                     }

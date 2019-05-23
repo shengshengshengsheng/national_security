@@ -260,12 +260,11 @@ public class VideoActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_video);
         init();
-        initEngine();
+            initEngine();
     }
 
     private void init() {
         mSelfView = findViewById(R.id.self_container);
-
         mSmallView = findViewById(R.id.video_view_list);
         mSmallView.setHasFixedSize(true);
         GridLayoutManager glm = new GridLayoutManager(this, 3);
@@ -277,34 +276,34 @@ public class VideoActivity extends AppCompatActivity {
         mTvRoomName.setText(mChannelName);
 
         mIvRtmp = findViewById(R.id.iv_push_rtmp);
-
         initMessage();
     }
 
     private void initEngine() {
         try {
+            //创建RtcEngine实例
             mRtcEngine = RtcEngine.create(getApplicationContext(), getResources().getString(R.string.agora_app_id), mRtcEngineEventHandler);
-
+            //设置频道模式
             mRtcEngine.setChannelProfile(Constants.CHANNEL_PROFILE_LIVE_BROADCASTING);
+            //设置直播场景下的用户角色
             mRtcEngine.setClientRole(Constants.CLIENT_ROLE_BROADCASTER);
-
+            //启用视频
             mRtcEngine.enableVideo();
-
-//          mRtcEngine.setVideoProfile(Constants.VIDEO_PROFILE_480P, true); // Replaced by setVideoEncoderConfiguration in Agora RTC SDK after 2.3.0+
+            //设置视频编码配置
             mRtcEngine.setVideoEncoderConfiguration(new VideoEncoderConfiguration(VideoEncoderConfiguration.VD_640x480, VideoEncoderConfiguration.FRAME_RATE.FRAME_RATE_FPS_15, VideoEncoderConfiguration.STANDARD_BITRATE, VideoEncoderConfiguration.ORIENTATION_MODE.ORIENTATION_MODE_FIXED_PORTRAIT));
-
+            //加入频道
             mRtcEngine.joinChannel(null, mChannelName, "", mBigUserId);
-
+            //创建渲染视图
             mBigView = RtcEngine.CreateRendererView(VideoActivity.this);
+
             if (mSelfView.getChildCount() > 0)
                 mSelfView.removeAllViews();
             mBigView.setLayoutParams(new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.MATCH_PARENT));
             mBigView.setZOrderMediaOverlay(false);
             mBigView.setZOrderOnTop(false);
             mSelfView.addView(mBigView);
-
+            //设置本地视图
             mRtcEngine.setupLocalVideo(new VideoCanvas(mBigView, Constants.RENDER_MODE_HIDDEN, mBigUserId));
-
             initTranscoding(480, 640, 1800);
             setTranscoding();
         } catch (Exception e) {

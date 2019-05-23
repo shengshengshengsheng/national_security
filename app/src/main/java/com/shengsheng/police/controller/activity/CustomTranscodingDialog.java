@@ -41,15 +41,12 @@ public class CustomTranscodingDialog {
                 if (progress == 0) {
                     progress = 1;
                 }
-
                 widthTextView.setText(progress + "");
                 mTransCoding.width = progress;
             }
-
             @Override
             public void onStartTrackingTouch(SeekBar seekBar) {
             }
-
             @Override
             public void onStopTrackingTouch(SeekBar seekBar) {
             }

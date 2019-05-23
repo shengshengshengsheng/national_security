@@ -1,10 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/activity_main"
     android:layout_width="match_parent"
     android:orientation="vertical"
-    android:layout_height="match_parent"
-    tools:context=".caseManage.UploadCaseInformtionActivity">
+    android:layout_height="match_parent">
     <RelativeLayout
         android:background="@android:color/holo_blue_dark"
         android:layout_width="match_parent"
@@ -15,18 +16,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="证据"
-            android:textSize="20sp"
-            />
-        <TextView
-            android:id="@+id/tv_case_upload"
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:text="上传"
-            android:textColor="@android:color/white"
-            android:textSize="25sp"
-            android:layout_alignParentRight="true"
-            android:gravity="center"
-            android:layout_marginRight="10dp"/>
+            android:textSize="20sp"/>
     </RelativeLayout>
     <TextView
         android:id="@+id/text_evidence"
@@ -44,15 +34,29 @@
         android:id="@+id/photo_evidence"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="视音频证据 "
+        android:text="图片证据 "
         android:textAllCaps="true"
         android:paddingBottom="3dp"
         android:textSize="40dp" />
-    <ImageButton
-        android:layout_width="wrap_content"
+
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/recyclerView"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:src="@drawable/upload_photo"/>
-
-
+        android:choiceMode="singleChoice"
+        android:divider="@null"
+        android:fadingEdge="none"
+        android:listSelector="@android:color/transparent"
+        android:scrollbarStyle="outsideOverlay"
+        app:layoutManager="android.support.v7.widget.GridLayoutManager"
+        app:spanCount="4"
+        tools:listitem="@layout/list_item_image" />
+    <Button
+        android:id="@+id/btn"
+        android:layout_width="500px"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:background="@color/agora_blue"
+        android:text="上传" />
 
 </LinearLayout>

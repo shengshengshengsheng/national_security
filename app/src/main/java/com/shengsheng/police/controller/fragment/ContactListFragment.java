@@ -77,7 +77,7 @@ public class ContactListFragment extends EaseContactListFragment {
         iv_contact_red = headerView.findViewById(R.id.iv_contact_red);
         //获取邀请信息条目点击事件
         ll_contact_invite = headerView.findViewById(R.id.ll_contact_invite);
-        //设置listView条目的点击事件
+        //设置联系人条目的点击事件
         setContactListItemClickListener(new EaseContactListItemClickListener() {
             @Override
             public void onListItemClicked(EaseUser user) {
@@ -249,7 +249,7 @@ public class ContactListFragment extends EaseContactListFragment {
             }
         });
     }
-    private void refreshContact() {
+    private void refreshContact() {//刷新联系人列表
         //获取数据
         List<UserInfo> contacts = Model.getInstance().getDbManager().getContactTableDao().getContacts();
         //校验

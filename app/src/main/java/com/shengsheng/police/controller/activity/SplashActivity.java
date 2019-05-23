@@ -23,13 +23,6 @@ public class SplashActivity extends Activity {
     };
     //判断进入主页面还是登陆页面
     private void toMainOrLogin() {
-//        new Thread()
-//        {
-//            public void run()
-//            {
-//
-//            }
-//        }.start();
         Model.getInstance().getGlobalThreadPool().execute(new Runnable() {
             @Override
             public void run() {

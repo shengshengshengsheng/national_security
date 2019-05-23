@@ -8,6 +8,7 @@ import android.widget.ExpandableListView;
 import android.widget.Toast;
 
 import com.shengsheng.police.R;
+import com.shengsheng.police.caseManage.upload.UploadCaseInformtionActivity;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -22,19 +23,24 @@ public class CaseCenterActivity extends AppCompatActivity implements MyAdapter.O
             {"危害国家安全罪", "危害公共安全罪", "破坏社会主义市场经济秩序罪", "侵犯公民人身权利"},
             {"侵犯财产罪", "危害国防利益罪", "贪污贿赂罪", "渎职罪", "军人违反职责罪"}
     };
-
     private MyAdapter mAdapter;
     private List<TitleInfo> mList = new ArrayList<>();
-
     @Override
-
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_case_center);
+        initView();
+        initData();
+        initListener();
+    }
+
+    private void initView() {
         mElistView = findViewById(R.id.mElistview);
+    }
+
+    private void initData() {
         initList();
         initAdapter();
-        initListener();
     }
 
     /**
@@ -46,7 +52,7 @@ public class CaseCenterActivity extends AppCompatActivity implements MyAdapter.O
             @Override
             public boolean onChildClick(ExpandableListView parent, View v, int groupPosition, int childPosition, long id) {
                 Toast.makeText(CaseCenterActivity.this,nameStrings[groupPosition][childPosition]+"",Toast.LENGTH_SHORT).show();
-                Intent intent=new Intent(CaseCenterActivity.this,UploadCaseInformtionActivity.class);
+                Intent intent=new Intent(CaseCenterActivity.this, UploadCaseInformtionActivity.class);
                 startActivity(intent);
                 return false;
             }
@@ -75,7 +81,6 @@ public class CaseCenterActivity extends AppCompatActivity implements MyAdapter.O
      * 初始化数据源
      */
     private void initList() {
-
         for (int i = 0; i < titleStrings.length; i++) {
             //创建组对象
             TitleInfo info= new TitleInfo();
@@ -95,9 +100,7 @@ public class CaseCenterActivity extends AppCompatActivity implements MyAdapter.O
             info.setInfo(list);
             //将组对象添加到总数据源中
             mList.add(info);
-
         }
-
     }
 
 
