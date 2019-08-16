@@ -88,7 +88,6 @@ public class ContactListFragment extends EaseContactListFragment {
                 Intent intent = new Intent(getActivity(), ChatActivity.class);
                 intent.putExtra(EaseConstant.EXTRA_USER_ID,user.getUsername());
                 startActivity(intent);
-
             }
         });
         //跳转到群组列表页面
@@ -146,12 +145,11 @@ public class ContactListFragment extends EaseContactListFragment {
     @Override
     public void onCreateContextMenu(ContextMenu menu, View v, ContextMenu.ContextMenuInfo menuInfo) {
         super.onCreateContextMenu(menu, v, menuInfo);
-        //获取环信id
+        //获取环信ID
         int position = ((AdapterView.AdapterContextMenuInfo) menuInfo).position;
         EaseUser easeUser = (EaseUser) listView.getItemAtPosition(position);
          mHxid = easeUser.getUsername();
-        //添加布局
-
+        //添加删除页面布局
         getActivity().getMenuInflater().inflate(R.menu.delete,menu);
     }
 

@@ -81,7 +81,7 @@ public class PunchCardActivity extends BasePunchActivity implements SensorEventL
     @Override
     protected void init(Bundle savedInstanceState) {
         initBaiduMap();     //1、初始化地图
-        getLocationClientOption();//2、定位开启
+        getLocationClientOption();//2、定位选项设置
         mHandler.post(run);//设置系统时间
         mDistance_tv = (TextView) findViewById(R.id.distance_tv);
         mTime_tv = (TextView) findViewById(R.id.arriver_timetv);
@@ -166,7 +166,7 @@ public class PunchCardActivity extends BasePunchActivity implements SensorEventL
             LatLng LocationPoint = new LatLng(location.getLatitude(), location.getLongitude());
             //打卡范围，打卡点设置在华南理工大学
             //mDestinationPoint = new LatLng(location.getLatitude() * 1.0001, location.getLongitude() * 1.0001);
-            //假设公司坐标为华南理工大学
+            //假设打卡坐标为华南理工大学
             mDestinationPoint = new LatLng(23.0540551376, 113.4130708748);
             setCircleOptions();
             //计算两点距离,单位：米

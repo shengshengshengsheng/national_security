@@ -37,6 +37,7 @@ public class WorkingFragment extends Fragment {
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
+        //跳转到一键增援页面
         bt_working_oneKey.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

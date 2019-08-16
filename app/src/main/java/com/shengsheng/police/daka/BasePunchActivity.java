@@ -34,7 +34,7 @@ public abstract class BasePunchActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_punch_card);
-        //1、不显示项目的title文字
+        //1、项目的title
         toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         //2、将子类的布局解析到 FrameLayout 里面

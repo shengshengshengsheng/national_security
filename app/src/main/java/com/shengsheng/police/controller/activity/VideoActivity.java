@@ -271,10 +271,8 @@ public class VideoActivity extends AppCompatActivity {
         mSmallAdapter = new SmallAdapter(this, getSmallVideoUser(mUserInfo, mBigUserId));
         mSmallView.setLayoutManager(glm);
         mSmallView.setAdapter(mSmallAdapter);
-
         mTvRoomName = findViewById(R.id.tv_room_name);
         mTvRoomName.setText(mChannelName);
-
         mIvRtmp = findViewById(R.id.iv_push_rtmp);
         initMessage();
     }

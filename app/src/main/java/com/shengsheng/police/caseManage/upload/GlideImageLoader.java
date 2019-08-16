@@ -11,10 +11,6 @@ import com.shengsheng.police.R;
 
 import java.io.File;
 
-/**
- * Created by yechao on 2017/4/28.
- * Describe :
- */
 
 public class GlideImageLoader implements ImageLoader {
 

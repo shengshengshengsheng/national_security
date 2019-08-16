@@ -9,18 +9,10 @@ import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
-
-/**
- * Created by dongxue on 2017/1/11.
- */
-
 public class BitmapUtils {
 
     /**
      * 质量压缩方法
-     *
-     * @param image
-     * @return
      */
     private static Bitmap compressImage(Bitmap image) {
 

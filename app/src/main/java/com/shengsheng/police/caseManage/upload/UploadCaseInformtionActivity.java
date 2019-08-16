@@ -40,7 +40,6 @@ public class UploadCaseInformtionActivity extends AppCompatActivity implements I
             @Override
             public void onClick(View v) {
                 uploadImage(selImageList);
-//                Toast.makeText(UploadCaseInformtionActivity.this, "证据上传成功", Toast.LENGTH_SHORT).show();
             }
         });
         //最好放到 Application oncreate执行
