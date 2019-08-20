@@ -12,6 +12,10 @@
     <string name="attach_take_pic">Capture</string>
     <string name="attach_location">Location</string>
     <string name="attach_video">Video</string>
+    <string name="attach_building">Building</string>
+    <string name="attach_building_source">Building_source</string>
+    <string name="attach_activity">Activity</string>
+    <string name="attach_news">News</string>
     <string name="attach_file">File</string>
     <string name="attach_voice_call">Voice call</string>
     <string name="attach_video_call">Video call</string>

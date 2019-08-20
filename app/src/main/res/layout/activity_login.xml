@@ -15,7 +15,7 @@
         <TextView
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:text="国保大平台"
+            android:text="IM"
             android:textSize="30dp"
             android:gravity="center"/>
     </LinearLayout>

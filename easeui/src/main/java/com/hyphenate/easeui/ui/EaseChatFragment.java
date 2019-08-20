@@ -123,11 +123,23 @@ public class EaseChatFragment extends EaseBaseFragment implements EMMessageListe
     static final int ITEM_TAKE_PICTURE = 1;
     static final int ITEM_PICTURE = 2;
     static final int ITEM_LOCATION = 3;
+    static final int ITEM_VIDEO = 4;
+    static final int ITEM_BUILDING=5;
+    static final int ITEM_BUILDING_SOURCE=6;
+    static final int ITEM_ACTIVITY=7;
+    static final int ITEM_NEWS=8;
     
-    protected int[] itemStrings = { R.string.attach_take_pic, R.string.attach_picture, R.string.attach_location };
-    protected int[] itemdrawables = { R.drawable.ease_chat_takepic_selector, R.drawable.ease_chat_image_selector,
-            R.drawable.ease_chat_location_selector };
-    protected int[] itemIds = { ITEM_TAKE_PICTURE, ITEM_PICTURE, ITEM_LOCATION };
+    protected int[] itemStrings = { R.string.attach_take_pic, R.string.attach_picture,
+            R.string.attach_location ,R.string.attach_video,R.string.attach_building,
+            R.string.attach_building_source,R.string.attach_activity,R.string.attach_news};
+
+    protected int[] itemdrawables = {
+            R.drawable.ease_chat_takepic_selector, R.drawable.ease_chat_image_selector,
+            R.drawable.ease_chat_location_selector,R.drawable.ease_chat_video_selector ,
+            R.drawable.ease_chat_building_selector,R.drawable.ease_chat_building_source_selector,
+            R.drawable.ease_chat_activity_selector,R.drawable.ease_chat_news_selector};
+
+    protected int[] itemIds = { ITEM_TAKE_PICTURE, ITEM_PICTURE, ITEM_LOCATION ,ITEM_VIDEO,ITEM_BUILDING,ITEM_BUILDING_SOURCE,ITEM_ACTIVITY,ITEM_NEWS};
     private boolean isMessageListInited;
     protected MyItemClickListener extendMenuItemClickListener;
     protected boolean isRoaming = false;
@@ -779,15 +791,32 @@ public class EaseChatFragment extends EaseBaseFragment implements EMMessageListe
             }
             switch (itemId) {
             case ITEM_TAKE_PICTURE:
+                //拍照业务逻辑处理
                 selectPicFromCamera();
                 break;
             case ITEM_PICTURE:
+                //选择本地图片业务逻辑处理
                 selectPicFromLocal();
                 break;
             case ITEM_LOCATION:
+                //位置业务逻辑处理
                 startActivityForResult(new Intent(getActivity(), EaseBaiduMapActivity.class), REQUEST_CODE_MAP);
                 break;
-
+                case ITEM_VIDEO:
+                    //视频业务逻辑处理
+                    break;
+                case ITEM_BUILDING:
+                    //楼盘业务逻辑处理
+                    break;
+                case ITEM_BUILDING_SOURCE:
+                    //房源业务逻辑处理
+                    break;
+                case ITEM_ACTIVITY:
+                    //活动业务逻辑处理
+                    break;
+                case ITEM_NEWS:
+                    //资讯业务逻辑处理
+                    break;
             default:
                 break;
             }
