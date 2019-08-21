@@ -30,6 +30,8 @@ public class MainActivity extends FragmentActivity {
     }
 
     private void initListener() {
+        rg_main.check(R.id.rb_main_chat);//默认选中会话页面
+        switchFragment(chatFragment);
         //RadioGroup的选择事件
         rg_main.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
             @Override
