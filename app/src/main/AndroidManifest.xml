@@ -29,6 +29,7 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme.NoActionBar">
+        <activity android:name=".controller.activity.RegisterActivity"></activity>
         <activity android:name=".controller.activity.GroupDetailActivity" />
         <activity android:name=".controller.activity.PickContactActivity" />
         <activity android:name=".controller.activity.NewGroupActivity" />
@@ -50,7 +51,7 @@
             android:value="1118190228222086#police" /> <!-- 声明SDK所需的service SDK核心功能 -->
         <meta-data
             android:name="com.baidu.lbsapi.API_KEY"
-            android:value="u6N2Za7vqKcneGHwWcAft8aph39VHvUz" />
+            android:value="ewsnah4pLL113jqndllVz5zVxaowDwAZ" />
 
         <service
             android:name="com.hyphenate.chat.EMChatService"

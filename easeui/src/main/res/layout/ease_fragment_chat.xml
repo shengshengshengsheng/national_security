@@ -28,11 +28,32 @@
             android:text="@string/alert_kicked_for_offline"
             android:textColor="#000" />
     </LinearLayout>
+
+
+    <!--添加-->
+    <LinearLayout
+        android:orientation="horizontal"
+        android:id="@+id/ll_banner"
+        android:layout_below="@+id/title_bar"
+        android:layout_width="match_parent"
+        android:layout_height="150dp">
+        <com.youth.banner.Banner
+            android:id="@+id/banner"
+            android:layout_width="match_parent"
+            android:layout_height="150dp" />
+    </LinearLayout>
+    <!--添加-->
+
+    <!--<RelativeLayout-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="match_parent"-->
+        <!--android:layout_above="@+id/input_menu"-->
+        <!--android:layout_below="@id/layout_alert_kicked_off">-->
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_above="@+id/input_menu"
-        android:layout_below="@id/layout_alert_kicked_off">
+        android:layout_below="@id/ll_banner">
 
         <com.hyphenate.easeui.widget.EaseChatMessageList
             android:id="@+id/message_list"

@@ -67,6 +67,7 @@ private Button bt_add_add;
         Model.getInstance().getGlobalThreadPool().execute(new Runnable() {
             @Override
             public void run() {
+
                 //去服务器判断当前查找的用户是否存在，此处我默认一定能查找到该用户，在真正使用时要去自己的服务器判断该用户是否真的存在哦
                  userInfo = new UserInfo(name);
                 //更新ui显示

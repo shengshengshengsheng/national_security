@@ -7,6 +7,7 @@ import android.text.TextUtils;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.hyphenate.EMCallBack;
@@ -20,7 +21,7 @@ import com.shengsheng.police.model.bean.UserInfo;
 public class LoginActivity extends Activity {
     private EditText et_login_name;
     private EditText et_login_pwd;
-    private Button bt_login_register;
+    private TextView tv_register;
     private Button bt_login_login;
 
     @Override
@@ -35,11 +36,12 @@ public class LoginActivity extends Activity {
 
     private void initListener() {
         //注册按钮的点击事件处理
-        bt_login_register.setOnClickListener(new View.OnClickListener() {
+        tv_register.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 //注册的业务逻辑处理
-                register();
+                Intent intent=new Intent(LoginActivity.this,RegisterActivity.class);
+                startActivity(intent);
             }
         });
         bt_login_login.setOnClickListener(new View.OnClickListener() {
@@ -52,44 +54,7 @@ public class LoginActivity extends Activity {
         });
     }
 
-    //注册的业务逻辑处理
-    private void register() {
-        //1.获取用户输入的用户名和密码
-        final String registerName=et_login_name.getText().toString();
-        final String registerPwd=et_login_pwd.getText().toString();
-        //2.校验用户输入的用户名和密码是否为空
-        if(TextUtils.isEmpty(registerName)||TextUtils.isEmpty(registerPwd))
-        {
-            Toast.makeText(LoginActivity.this,"输入的用户名或密码不能为空",Toast.LENGTH_SHORT).show();
-            return;
-        }
-        //3.去服务器注册账号
-        Model.getInstance().getGlobalThreadPool().execute(new Runnable() {
-            @Override
-            public void run() {
-                try {
-                    //去环信服务器注册账号
-                    EMClient.getInstance().createAccount(registerName,registerPwd);
-                    //更新页面显示
-                    runOnUiThread(new Runnable() {
-                        @Override
-                        public void run() {
-                            Toast.makeText(LoginActivity.this,"注册成功",Toast.LENGTH_SHORT).show();
-                        }
-                    });
-                } catch (final HyphenateException e) {
-                    e.printStackTrace();
-                    //注册失败
-                    runOnUiThread(new Runnable() {
-                        @Override
-                        public void run() {
-                            Toast.makeText(LoginActivity.this,"注册失败"+e.toString(),Toast.LENGTH_SHORT).show();
-                        }
-                    });
-                }
-            }
-        });
-    }
+
     //登录的业务逻辑处理
     private void login() {
         //1.获取用户输入的用户名和密码
@@ -151,7 +116,7 @@ public class LoginActivity extends Activity {
     private void initView() {
         et_login_name= findViewById(R.id.et_login_name);
         et_login_pwd=findViewById(R.id.et_login_pwd);
-        bt_login_register=findViewById(R.id.bt_login_register);
+        tv_register=findViewById(R.id.tv_register);
         bt_login_login=findViewById(R.id.bt_login_login);
     }
 }
