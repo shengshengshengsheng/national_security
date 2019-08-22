@@ -9,17 +9,20 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.hyphenate.EMCallBack;
 import com.hyphenate.chat.EMClient;
 import com.shengsheng.police.R;
+import com.shengsheng.police.controller.activity.ChangeInfoActivity;
 import com.shengsheng.police.controller.activity.LoginActivity;
 import com.shengsheng.police.model.Model;
 
 //设置页面
 public class SettingFragment extends Fragment {
-    private Button bt_setting_out;
+    private Button bt_out;
+    private Button bt_change_info;
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -29,7 +32,8 @@ public class SettingFragment extends Fragment {
     }
 
     private void initView(View view) {
-        bt_setting_out=(Button) view.findViewById(R.id.bt_setting_out);
+        bt_out=(Button) view.findViewById(R.id.bt_out);
+        bt_change_info=view.findViewById(R.id.bt_change_info);
     }
 
     @Override
@@ -37,12 +41,11 @@ public class SettingFragment extends Fragment {
         super.onActivityCreated(savedInstanceState);
         initData();
     }
-
     private void initData() {
         //在button上显示当前用户名称
-        bt_setting_out.setText("退出登录("+ EMClient.getInstance().getCurrentUser()+")");
+        bt_out.setText("退出登录("+ EMClient.getInstance().getCurrentUser()+")");
         //退出登录的逻辑显示
-        bt_setting_out.setOnClickListener(new View.OnClickListener() {
+        bt_out.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Model.getInstance().getGlobalThreadPool().execute(new Runnable() {
@@ -87,5 +90,16 @@ public class SettingFragment extends Fragment {
                 });
             }
         });
+        //修改信息的点击事件处理
+        bt_change_info.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent=new Intent(getActivity(), ChangeInfoActivity.class);
+                startActivity(intent);
+            }
+        });
+
+
+
     }
 }

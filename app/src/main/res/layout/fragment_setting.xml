@@ -9,24 +9,37 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
     </com.hyphenate.easeui.widget.EaseTitleBar>
-    <ScrollView
+<!--    <ScrollView-->
+<!--        android:layout_width="match_parent"-->
+<!--        android:layout_height="0dp"-->
+<!--        android:layout_weight="1">-->
+<!--        <TextView-->
+<!--            android:text="这里是setting"-->
+<!--            android:textSize="30dp"-->
+<!--            android:layout_gravity="center"-->
+<!--            android:layout_width="wrap_content"-->
+<!--            android:layout_height="wrap_content" />-->
+<!--    </ScrollView>-->
+    <Button android:id="@+id/bt_change_info"
         android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="1">
-        <TextView
-            android:text="这里是setting"
-            android:textSize="30dp"
-            android:layout_gravity="center"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content" />
-    </ScrollView>
-<Button
-    android:id="@+id/bt_setting_out"
-    android:layout_width="match_parent"
-    android:layout_height="60dp"
-    android:textAllCaps="false"
-    android:text="退出"
-    android:textSize="20sp"
-    android:textColor="@android:color/white"
-    android:background="@android:color/holo_red_light"/>
+        android:layout_height="60sp"
+        android:drawableLeft="@mipmap/user_info"
+        android:drawableRight="@mipmap/go_right"
+        android:paddingLeft="5dp"
+        android:textSize="20dp"
+        android:gravity="center_vertical"
+        android:drawablePadding="10dip"
+        android:layout_marginBottom="2dp"
+        android:text="个人中心"/>
+    <Button android:id="@+id/bt_out"
+        android:layout_width="match_parent"
+        android:layout_height="60sp"
+        android:textSize="20dp"
+        android:drawableLeft="@mipmap/bt_outing"
+        android:drawableRight="@mipmap/go_right"
+        android:paddingLeft="5dp"
+        android:gravity="center_vertical"
+        android:drawablePadding="10dip"
+        android:layout_marginBottom="2dp"
+        android:text="退出"/>
 </LinearLayout>

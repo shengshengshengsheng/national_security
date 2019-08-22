@@ -6,6 +6,8 @@ import android.content.ClipboardManager;
 import android.content.Context;
 import android.content.Intent;
 import android.database.Cursor;
+import android.graphics.Bitmap;
+import android.media.ThumbnailUtils;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
@@ -71,6 +73,7 @@ import com.youth.banner.listener.OnBannerListener;
 import com.youth.banner.loader.ImageLoader;
 
 import java.io.File;
+import java.io.FileOutputStream;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.ExecutorService;
@@ -102,6 +105,7 @@ public class EaseChatFragment extends EaseBaseFragment implements EMMessageListe
     protected static final int REQUEST_CODE_CAMERA = 2;
     protected static final int REQUEST_CODE_LOCAL = 3;
     protected static final int REQUEST_CODE_DING_MSG = 4;
+    private static final int REQUEST_CODE_SELECT_VIDEO = 5;
 
     protected static final int MSG_TYPING_BEGIN = 0;
     protected static final int MSG_TYPING_END = 1;
@@ -192,9 +196,6 @@ public class EaseChatFragment extends EaseBaseFragment implements EMMessageListe
         this.turnOnTyping = turnOnTyping();
 
         super.onActivityCreated(savedInstanceState);
-
-
-
 
     }
     //初始化图片数据(从本地加载banner图片)
@@ -873,6 +874,7 @@ public class EaseChatFragment extends EaseBaseFragment implements EMMessageListe
                     startActivityForResult(new Intent(getActivity(), EaseBaiduMapActivity.class), REQUEST_CODE_MAP);
                     break;
                 case ITEM_VIDEO:
+
                     //视频业务逻辑处理
                     break;
                 case ITEM_BUILDING:

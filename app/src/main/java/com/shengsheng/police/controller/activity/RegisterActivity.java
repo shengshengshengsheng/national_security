@@ -49,7 +49,7 @@ public class RegisterActivity extends Activity {
         final String registerName = et_user_name.getText().toString();
         final String registerPwd = et_password.getText().toString();
         final String registerPwdAgain = et_password_again.getText().toString();
-        //2.校验用户输入的用户名和密码是否为空
+        //2.校验用户输入的用户名和密码是否为空，判断两次输入的密码是否相同
         if (TextUtils.isEmpty(registerName) || TextUtils.isEmpty(registerPwd) || TextUtils.isEmpty(registerPwdAgain)) {
             Toast.makeText(RegisterActivity.this, "输入的用户名或密码不能为空，请重新输入", Toast.LENGTH_SHORT).show();
             return;
