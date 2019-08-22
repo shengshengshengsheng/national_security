@@ -31,8 +31,25 @@ public class UserAccountDao {
         values.put(UserAccountTable.COL_NAME,user.getName());
         values.put(UserAccountTable.COL_NICK,user.getNick());
         values.put(UserAccountTable.COL_PHOTO,user.getPhoto());
+//        public long replace(String table, String nullColumnHack, ContentValues initialValues)
         db.replace(UserAccountTable.TAB_NAME,null,values);
-
+    }
+    //更新用户信息
+    public void updateAccount(UserInfo user)
+    {
+        //验证
+        if (user==null){
+            return;
+        }
+        //获取数据库对象
+        SQLiteDatabase db= mHelper.getReadableDatabase();
+        ContentValues values=new ContentValues();
+        String[] args={String.valueOf(user.getHxid())};
+        values.put(UserAccountTable.COL_HXID,user.getHxid());
+        values.put(UserAccountTable.COL_NAME,user.getName());
+        values.put(UserAccountTable.COL_NICK,user.getNick());
+        values.put(UserAccountTable.COL_PHOTO,user.getPhoto());
+        db.update(UserAccountTable.TAB_NAME,values,"hxid=?",args);
     }
     //根据环信id获取所有用户信息
     public UserInfo getAccountByHxId(String hxId)

@@ -40,7 +40,7 @@ public class LoginActivity extends Activity {
             @Override
             public void onClick(View v) {
                 //注册的业务逻辑处理
-                Intent intent=new Intent(LoginActivity.this,RegisterActivity.class);
+                Intent intent = new Intent(LoginActivity.this, RegisterActivity.class);
                 startActivity(intent);
             }
         });
@@ -58,12 +58,11 @@ public class LoginActivity extends Activity {
     //登录的业务逻辑处理
     private void login() {
         //1.获取用户输入的用户名和密码
-        final String loginName=et_login_name.getText().toString();
-        final String loginPwd=et_login_pwd.getText().toString();
+        final String loginName = et_login_name.getText().toString();
+        final String loginPwd = et_login_pwd.getText().toString();
         //2.校验用户输入的用户名和密码是否为空
-        if(TextUtils.isEmpty(loginName)||TextUtils.isEmpty(loginPwd))
-        {
-            Toast.makeText(LoginActivity.this,"输入的用户名或密码不能为空",Toast.LENGTH_SHORT).show();
+        if (TextUtils.isEmpty(loginName) || TextUtils.isEmpty(loginPwd)) {
+            Toast.makeText(LoginActivity.this, "输入的用户名或密码不能为空", Toast.LENGTH_SHORT).show();
             return;
         }
         //3.具体的登录逻辑处理
@@ -84,14 +83,15 @@ public class LoginActivity extends Activity {
                             @Override
                             public void run() {
                                 //提示登录成功
-                                Toast.makeText(LoginActivity.this,"登录成功",Toast.LENGTH_SHORT).show();
+                                Toast.makeText(LoginActivity.this, "登录成功", Toast.LENGTH_SHORT).show();
                                 //跳转到主界面
-                                Intent intent=new Intent(LoginActivity.this,MainActivity.class);
+                                Intent intent = new Intent(LoginActivity.this, MainActivity.class);
                                 startActivity(intent);
                                 finish();
                             }
                         });
                     }
+
                     //登录失败的处理
                     @Override
                     public void onError(int i, final String s) {
@@ -99,11 +99,12 @@ public class LoginActivity extends Activity {
                         runOnUiThread(new Runnable() {
                             @Override
                             public void run() {
-                                Toast.makeText(LoginActivity.this,"登录失败"+s,Toast.LENGTH_SHORT).show();
+                                Toast.makeText(LoginActivity.this, "登录失败" + s, Toast.LENGTH_SHORT).show();
                             }
                         });
 
                     }
+
                     //登录过程中的处理
                     @Override
                     public void onProgress(int i, String s) {
@@ -113,10 +114,11 @@ public class LoginActivity extends Activity {
             }
         });
     }
+
     private void initView() {
-        et_login_name= findViewById(R.id.et_login_name);
-        et_login_pwd=findViewById(R.id.et_login_pwd);
-        tv_register=findViewById(R.id.tv_register);
-        bt_login_login=findViewById(R.id.bt_login_login);
+        et_login_name = findViewById(R.id.et_login_name);
+        et_login_pwd = findViewById(R.id.et_login_pwd);
+        tv_register = findViewById(R.id.tv_register);
+        bt_login_login = findViewById(R.id.bt_login_login);
     }
 }
