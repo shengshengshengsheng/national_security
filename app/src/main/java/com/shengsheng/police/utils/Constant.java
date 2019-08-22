@@ -1,4 +1,7 @@
 package com.shengsheng.police.utils;
+
+import android.os.Environment;
+
 //全局的常量
 public class Constant {
     //联系人邀请信息状态变化的广播
@@ -11,5 +14,7 @@ public class Constant {
     public static final String GROUP_ID = "group_id";
 
     public static final String EXIT_GROUP = "exit_group";//退群的广播
+
+    public static final String PIC_PATH = Environment.getExternalStorageDirectory().getAbsolutePath() + "/TakePhotoPic";//图片路径
 
 }
