@@ -79,6 +79,8 @@ import java.util.List;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
+import static com.hyphenate.easeui.EaseConstant.USER_NICK;
+
 /**
  * you can new an EaseChatFragment to use or you can inherit it to expand.
  * You need call setArguments to pass chatType and userId
@@ -998,7 +1000,9 @@ public class EaseChatFragment extends EaseBaseFragment implements EMMessageListe
             return;
         }
         if (chatFragmentHelper != null) {
+            //添加扩展信息
             //set extension
+            //设置要发送扩展消息用户昵称
             chatFragmentHelper.onSetMessageAttributes(message);
         }
         if (chatType == EaseConstant.CHATTYPE_GROUP) {

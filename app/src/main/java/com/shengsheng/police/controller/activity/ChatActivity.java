@@ -12,12 +12,18 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 
+import com.hyphenate.chat.EMClient;
 import com.hyphenate.chat.EMMessage;
 import com.hyphenate.easeui.EaseConstant;
 import com.hyphenate.easeui.ui.EaseChatFragment;
 import com.hyphenate.easeui.widget.chatrow.EaseCustomChatRowProvider;
 import com.shengsheng.police.R;
+import com.shengsheng.police.model.Model;
+import com.shengsheng.police.model.bean.UserInfo;
 import com.shengsheng.police.utils.Constant;
+
+import static com.hyphenate.easeui.EaseConstant.USER_NICK;
+import static com.hyphenate.easeui.EaseConstant.USER_PHOTO;
 
 //会话详情页面
 public class ChatActivity extends FragmentActivity {
@@ -25,6 +31,7 @@ public class ChatActivity extends FragmentActivity {
     private String mHxid;
     private LocalBroadcastManager mLBM;
     private int mChatType;
+    final UserInfo userInfo = Model.getInstance().getUserAccountDao().getAccountByHxId(EMClient.getInstance().getCurrentUser());
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -32,11 +39,28 @@ public class ChatActivity extends FragmentActivity {
         initData();
         initListener();
     }
+    private void initData() {
+        //创建一个聊天的fragment
+        easeChatFragment = new EaseChatFragment();
+        mHxid = getIntent().getExtras().getString(EaseConstant.EXTRA_USER_ID);
+        //获取聊天类型
+        mChatType= getIntent().getExtras().getInt(EaseConstant.EXTRA_CHAT_TYPE);
 
+        easeChatFragment.setArguments(getIntent().getExtras());
+        //替换fragment
+        FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
+        transaction.replace(R.id.fl_chat,easeChatFragment).commit();
+        //获取发送广播的管理者
+        mLBM = LocalBroadcastManager.getInstance(ChatActivity.this);
+
+    }
     private void initListener() {
+
         easeChatFragment.setChatFragmentHelper(new EaseChatFragment.EaseChatFragmentHelper() {
             @Override
             public void onSetMessageAttributes(EMMessage message) {
+                message.setAttribute(USER_NICK,userInfo.getNick());
+                message.setAttribute(USER_PHOTO,userInfo.getPhoto());
             }
             @Override
             public void onEnterToChatDetails() {
@@ -89,19 +113,5 @@ public class ChatActivity extends FragmentActivity {
         }
     }
 
-    private void initData() {
-        //创建一个聊天的fragment
-         easeChatFragment = new EaseChatFragment();
-         mHxid = getIntent().getExtras().getString(EaseConstant.EXTRA_USER_ID);
-         //获取聊天类型
-        mChatType= getIntent().getExtras().getInt(EaseConstant.EXTRA_CHAT_TYPE);
 
-        easeChatFragment.setArguments(getIntent().getExtras());
-        //替换fragment
-        FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
-        transaction.replace(R.id.fl_chat,easeChatFragment).commit();
-        //获取发送广播的管理者
-        mLBM = LocalBroadcastManager.getInstance(ChatActivity.this);
-
-    }
 }

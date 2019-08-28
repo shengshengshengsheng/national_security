@@ -6,26 +6,31 @@ import android.view.SurfaceView;
 public class UserInfo {
     public int uid;
     public SurfaceView view;
-    private String name;//用户名称
-    private String hxid;//环信id，用户在环信服务器中唯一的标识
-    private String nick;//用户昵称
-    private String photo;//用户头像
+    private String name="name";//用户名称
+    private String hxid="hxid";//环信id，用户在环信服务器中唯一的标识
+    private String nick="nick";//用户昵称
+    private String photo="http://b-ssl.duitang.com/uploads/item/201702/22/20170222200954_zeJWu.thumb.700_0.jpeg";//用户头像
     public UserInfo()
     {
-
     }
-    //设置用户名称、昵称、环信id为相同的name
+    //此处这样赋值仅为演示效果
     public UserInfo(String name)
     {
-        this.name=name;
         this.hxid=name;
-        this.nick=name;
     }
     public UserInfo(String name,String hxid,String nick)
     {
         this.name=name;
         this.hxid=hxid;
         this.nick=nick;
+
+    }
+    public UserInfo(String name,String hxid,String nick,String pic_url)
+    {
+        this.name=name;
+        this.hxid=hxid;
+        this.nick=nick;
+        this.photo=pic_url;
     }
 
     public void setName(String name) {

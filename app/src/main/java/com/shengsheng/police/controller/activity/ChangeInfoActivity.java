@@ -9,12 +9,14 @@ import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Environment;
+import android.os.Handler;
 import android.provider.MediaStore;
 import android.support.annotation.NonNull;
 import android.support.v4.content.FileProvider;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.Button;
@@ -27,16 +29,21 @@ import com.shengsheng.police.R;
 import com.shengsheng.police.model.Model;
 import com.shengsheng.police.model.bean.UserInfo;
 import com.shengsheng.police.utils.Constant;
+import com.shengsheng.police.utils.ImageUtils;
 
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.InputStream;
+import java.net.HttpURLConnection;
+import java.net.MalformedURLException;
+import java.net.URL;
 import java.util.List;
 
 import pub.devrel.easypermissions.AppSettingsDialog;
 import pub.devrel.easypermissions.EasyPermissions;
 
-public class ChangeInfoActivity extends AppCompatActivity implements EasyPermissions.PermissionCallbacks{
+public class ChangeInfoActivity extends AppCompatActivity implements EasyPermissions.PermissionCallbacks {
     private Context mContext;
     private AlertDialog profilePictureDialog;
     private static final String PERMISSION_CAMERA = Manifest.permission.CAMERA;
@@ -44,21 +51,19 @@ public class ChangeInfoActivity extends AppCompatActivity implements EasyPermiss
     private static final int REQUEST_PERMISSION_CAMERA = 0x001;
     private static final int REQUEST_PERMISSION_WRITE = 0x002;
     private static final int CROP_REQUEST_CODE = 0x003;
-
-    private ImageView ivAvatar;
-
     /**
      * 文件相关
      */
     private File captureFile;
     private File rootFile;
     private File cropFile;
-
     private ImageView iv_head;//头像
     private EditText et_info_account;//账号
     private EditText et_info_name;//姓名
     private EditText et_info_nick;//昵称
+    private EditText et_info_pic_url;//头像Url
     private Button bt_save_change;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         mContext = this;
@@ -74,15 +79,18 @@ public class ChangeInfoActivity extends AppCompatActivity implements EasyPermiss
         if (!rootFile.exists()) {
             rootFile.mkdirs();
         }
-        UserInfo userInfo= Model.getInstance().getUserAccountDao().getAccountByHxId(EMClient.getInstance().getCurrentUser());
+        //从数据库中取用户相关信息
+        UserInfo userInfo = Model.getInstance().getUserAccountDao().getAccountByHxId(EMClient.getInstance().getCurrentUser());
         et_info_account.setText(userInfo.getHxid());
         et_info_account.setClickable(false);
         et_info_account.setFocusable(false);
         et_info_account.setFocusableInTouchMode(false);
         et_info_name.setText(userInfo.getName());
         et_info_nick.setText(userInfo.getNick());
-
+        et_info_pic_url.setText(userInfo.getPhoto());
+        iv_head.setImageBitmap(ImageUtils.returnBitMap(userInfo.getPhoto()));
     }
+
 
     private void initListener() {
         //头像的点击事件处理
@@ -100,7 +108,8 @@ public class ChangeInfoActivity extends AppCompatActivity implements EasyPermiss
             }
         });
     }
-//上传头像
+
+    //上传头像
     private void updateImage() {
         if (profilePictureDialog == null) {
             @SuppressLint("InflateParams") View rootView = LayoutInflater.from(this).inflate(R.layout.item_profile_picture, null);
@@ -127,13 +136,19 @@ public class ChangeInfoActivity extends AppCompatActivity implements EasyPermiss
                     }
                 }
             });
+            rootView.findViewById(R.id.tv_cancel).setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Toast.makeText(ChangeInfoActivity.this, "你取消了上传", Toast.LENGTH_SHORT).show();
+                    profilePictureDialog.dismiss();
+                }
+            });
             builder.setView(rootView);
             profilePictureDialog = builder.create();
             profilePictureDialog.show();
         } else {
             profilePictureDialog.show();
         }
-
     }
 
     //从相册选择
@@ -142,7 +157,8 @@ public class ChangeInfoActivity extends AppCompatActivity implements EasyPermiss
         photoPickerIntent.setType("image/*");
         startActivityForResult(photoPickerIntent, REQUEST_PERMISSION_WRITE);
     }
-//拍照
+
+    //拍照
     private void takePhoto() {
         //用于保存调用相机拍照后所生成的文件
         if (!Environment.getExternalStorageState().equals(Environment.MEDIA_MOUNTED)) {
@@ -168,6 +184,34 @@ public class ChangeInfoActivity extends AppCompatActivity implements EasyPermiss
             profilePictureDialog.dismiss();
         }
     }
+
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        if (resultCode == RESULT_OK) {
+            switch (requestCode) {
+                case REQUEST_PERMISSION_CAMERA:
+                    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
+                        Uri contentUri = FileProvider.getUriForFile(mContext, getPackageName(), captureFile);
+                        cropPhoto(contentUri);
+                    } else {
+                        cropPhoto(Uri.fromFile(captureFile));
+                    }
+                    break;
+                case REQUEST_PERMISSION_WRITE:
+                    cropPhoto(data.getData());
+                    break;
+                case CROP_REQUEST_CODE:
+                    saveImage(cropFile.getAbsolutePath());//保存裁剪后的文件到本地
+                    iv_head.setImageBitmap(BitmapFactory.decodeFile(cropFile.getAbsolutePath()));
+                    break;
+                default:
+                    break;
+            }
+        }
+        super.onActivityResult(requestCode, resultCode, data);
+    }
+
     /**
      * 裁剪图片
      */
@@ -189,35 +233,10 @@ public class ChangeInfoActivity extends AppCompatActivity implements EasyPermiss
         startActivityForResult(intent, CROP_REQUEST_CODE);
     }
 
-    @Override
-    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        if (resultCode == RESULT_OK) {
-            switch (requestCode) {
-                case REQUEST_PERMISSION_CAMERA:
-                    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
-                        Uri contentUri = FileProvider.getUriForFile(mContext, getPackageName(), captureFile);
-                        cropPhoto(contentUri);
-                    } else {
-                        cropPhoto(Uri.fromFile(captureFile));
-                    }
-                    break;
-                case REQUEST_PERMISSION_WRITE:
-                    cropPhoto(data.getData());
-                    break;
-                case CROP_REQUEST_CODE:
-                    saveImage(cropFile.getAbsolutePath());//保存裁剪后的文件到本地
-                    ivAvatar.setImageBitmap(BitmapFactory.decodeFile(cropFile.getAbsolutePath()));
-                    iv_head.setImageBitmap(BitmapFactory.decodeFile(cropFile.getAbsolutePath()));
-                    break;
-                default:
-                    break;
-            }
-        }
-        super.onActivityResult(requestCode, resultCode, data);
-    }
     /**
+     * 保存裁剪后的图片到本地
+     *
      * @param path
-     * @return
      */
     public String saveImage(String path) {
         if (!Environment.getExternalStorageState().equals(Environment.MEDIA_MOUNTED)) {
@@ -237,26 +256,24 @@ public class ChangeInfoActivity extends AppCompatActivity implements EasyPermiss
     }
 
 
-    //保存用户相关信息
+    //保存用户修改后的相关信息到数据库
     private void saveInfo() {
-        final String new_name=et_info_name.getText().toString();
-        final String account=et_info_account.getText().toString();
-        final String new_nick=et_info_nick.getText().toString();
-        Model.getInstance().getUserAccountDao().updateAccount(new UserInfo(new_name,account,new_nick));
+        final String new_name = et_info_name.getText().toString();
+        final String account = et_info_account.getText().toString();
+        final String new_nick = et_info_nick.getText().toString();
+        final String pic_url = et_info_pic_url.getText().toString();
+            Model.getInstance().getUserAccountDao().updateAccount(new UserInfo(new_name, account, new_nick, pic_url));
         Toast.makeText(ChangeInfoActivity.this, "修改成功", Toast.LENGTH_SHORT).show();
-        //跳转到主界面
-//        Intent intent = new Intent(ChangeInfoActivity.this, SettingFragment.class);
-//        startActivity(intent);
         finish();
     }
 
     private void initView() {
-        ivAvatar = findViewById(R.id.iv_avatar);
-        iv_head=findViewById(R.id.iv_head);
-        et_info_account=findViewById(R.id.et_info_account);
-        et_info_name=findViewById(R.id.et_info_name);
-        et_info_nick=findViewById(R.id.et_info_nick);
-        bt_save_change=findViewById(R.id.bt_save_change);
+        iv_head = findViewById(R.id.iv_head);
+        et_info_account = findViewById(R.id.et_info_account);
+        et_info_name = findViewById(R.id.et_info_name);
+        et_info_nick = findViewById(R.id.et_info_nick);
+        bt_save_change = findViewById(R.id.bt_save_change);
+        et_info_pic_url = findViewById(R.id.et_info_pic_url);
     }
 
     @Override

@@ -37,6 +37,7 @@ public class ChatFragment extends EaseConversationListFragment {
     private EMMessageListener emMessageListener=new EMMessageListener() {
         @Override
         public void onMessageReceived(List<EMMessage> list) {
+
             //设置数据
            EaseUI.getInstance().getNotifier().notify(list);
             //刷新页面
