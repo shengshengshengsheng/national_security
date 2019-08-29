@@ -43,6 +43,7 @@ import java.util.List;
 import pub.devrel.easypermissions.AppSettingsDialog;
 import pub.devrel.easypermissions.EasyPermissions;
 
+
 public class ChangeInfoActivity extends AppCompatActivity implements EasyPermissions.PermissionCallbacks {
     private Context mContext;
     private AlertDialog profilePictureDialog;
@@ -86,6 +87,9 @@ public class ChangeInfoActivity extends AppCompatActivity implements EasyPermiss
         et_info_account.setFocusable(false);
         et_info_account.setFocusableInTouchMode(false);
         et_info_name.setText(userInfo.getName());
+        et_info_name.setClickable(false);
+        et_info_name.setFocusable(false);
+        et_info_name.setFocusableInTouchMode(false);
         et_info_nick.setText(userInfo.getNick());
         et_info_pic_url.setText(userInfo.getPhoto());
         iv_head.setImageBitmap(ImageUtils.returnBitMap(userInfo.getPhoto()));

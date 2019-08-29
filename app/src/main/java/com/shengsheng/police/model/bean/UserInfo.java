@@ -16,6 +16,7 @@ public class UserInfo {
     //此处这样赋值仅为演示效果
     public UserInfo(String name)
     {
+        this.name=name;
         this.hxid=name;
     }
     public UserInfo(String name,String hxid,String nick)

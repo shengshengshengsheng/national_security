@@ -6,9 +6,14 @@ import com.hyphenate.chat.EMConversation;
 import com.hyphenate.chat.EMMessage;
 import com.hyphenate.easeui.EaseConstant;
 import com.hyphenate.easeui.EaseUI;
+import com.hyphenate.easeui.domain.EaseUser;
 import com.hyphenate.easeui.ui.EaseConversationListFragment;
 import com.shengsheng.police.controller.activity.ChatActivity;
 import java.util.List;
+
+import static com.hyphenate.easeui.EaseConstant.USER_NICK;
+import static com.hyphenate.easeui.EaseConstant.USER_PHOTO;
+
 //会话列表页面
 public class ChatFragment extends EaseConversationListFragment {
     @Override
@@ -37,11 +42,20 @@ public class ChatFragment extends EaseConversationListFragment {
     private EMMessageListener emMessageListener=new EMMessageListener() {
         @Override
         public void onMessageReceived(List<EMMessage> list) {
+            for (EMMessage message : list) {
 
-            //设置数据
-           EaseUI.getInstance().getNotifier().notify(list);
-            //刷新页面
-            refresh();
+                //接收并处理扩展消息
+                String userNick = message.getStringAttribute(USER_NICK, "");
+                String userPic = message.getStringAttribute(USER_PHOTO, "");
+                String hxIdFrom = message.getFrom();
+                EaseUser easeUser = new EaseUser(hxIdFrom);
+                easeUser.setAvatar(userPic);
+                easeUser.setNickname(userNick);
+            }
+                //设置数据
+                EaseUI.getInstance().getNotifier().notify(list);
+                //刷新页面
+                refresh();
         }
 
         @Override

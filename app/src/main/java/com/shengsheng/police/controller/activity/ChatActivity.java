@@ -21,6 +21,7 @@ import com.shengsheng.police.R;
 import com.shengsheng.police.model.Model;
 import com.shengsheng.police.model.bean.UserInfo;
 import com.shengsheng.police.utils.Constant;
+import com.shengsheng.police.utils.SpUtils;
 
 import static com.hyphenate.easeui.EaseConstant.USER_NICK;
 import static com.hyphenate.easeui.EaseConstant.USER_PHOTO;
@@ -61,6 +62,8 @@ public class ChatActivity extends FragmentActivity {
             public void onSetMessageAttributes(EMMessage message) {
                 message.setAttribute(USER_NICK,userInfo.getNick());
                 message.setAttribute(USER_PHOTO,userInfo.getPhoto());
+                SpUtils.getInstance().save("userNick",userInfo.getNick());
+                SpUtils.getInstance().save("userAvatar",userInfo.getPhoto());
             }
             @Override
             public void onEnterToChatDetails() {
